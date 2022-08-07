@@ -1,0 +1,489 @@
+.body{
+    background-color: #8a15d8;
+  }
+.parent{
+    margin: auto;
+    max-width: 1150px ;
+}
+.wrapper2 {
+      
+    font-family: "Arial";
+}
+.toolbar{
+    
+    width: 100%;
+    border: 3px solid #000000;
+    overflow: auto;
+}
+   
+.toolbar a {
+      float: left;
+      width: 11%;
+      text-align: center;
+      padding: 6px 5px;
+      transition: all 0.5s ease;
+      color: white;
+}
+.toolbar a:hover {
+      background-color: #000;
+    }
+#mytext{
+        text-align: center;        
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #8bd3c7;
+        font-size: 12px;
+        resize: none;
+}
+.footbar{
+        
+        width: 100%;
+        border: 3px solid #000000;
+        overflow: auto;
+  }
+  
+     
+  /* Change color on selected icon */
+  /*background-color: #444444;*/
+  /* Change color on selected icon */
+   
+  .selected {
+    background-color: rgb(74, 180, 64); 
+}
+  .selected2 {
+    background-color: rgb(235, 47, 14); 
+  }
+  #canvas{
+      width: 100%;
+      border: 3px solid #000000;
+      
+  } 
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+/*body{
+  background: #88ABFF;
+}*/
+::selection{
+  color: #fff;
+  background: #618cf8;
+}
+.wrapper{
+  border: 3px solid #000000;  
+  display: grid;
+  gap: 28px;
+  grid-template-columns: repeat(auto-fill, 265px);
+}
+.wrapper li{
+  height: 250px;
+  list-style: none;
+  border-radius: 5px;
+  padding: 15px 20px 20px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.add-box, .icon, .bottom-content, 
+.popup, header, .settings .menu li, 
+.popup2, header, .settings .menu li{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.add-box{
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+}
+.add-box .icon{
+  height: 78px;
+  width: 78px;
+  color: #88ABFF;
+  font-size: 40px;
+  border-radius: 50%;
+  justify-content: center;
+  border: 2px dashed #88ABFF;
+}
+.add-box p{
+  color: #88ABFF;
+  font-weight: 500;
+  margin-top: 20px;
+}
+/*table content style  */
+.note{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+.note .details{
+  max-height: 165px;
+  overflow-y: auto;
+}
+.note .details::-webkit-scrollbar,
+.popup textarea::-webkit-scrollbar,
+.popup2 textarea::-webkit-scrollbar{
+  width: 0;
+}
+.note .details:hover::-webkit-scrollbar,
+.popup textarea:hover::-webkit-scrollbar,
+.popup2 textarea:hover::-webkit-scrollbar{
+  width: 5px;
+}
+.note .details:hover::-webkit-scrollbar-track,
+.popup textarea:hover::-webkit-scrollbar-track,
+.popup2 textarea:hover::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.note .details:hover::-webkit-scrollbar-thumb,
+.popup textarea:hover::-webkit-scrollbar-thumb,
+.popup2 textarea:hover::-webkit-scrollbar-thumb{
+  background: #e6e6e6;
+  border-radius: 25px;
+}
+.note p{
+  font-size: 22px;
+  font-weight: 500;
+}
+.note span{
+  display: block;
+  color: #575757;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+.note .bottom-content{
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+/*popup for add and edit table*/
+
+.popup-box{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.4);
+}
+.popup-box .popup{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
+  transform: translate(-50%, -50%) scale(0.95);
+}
+.popup-box, .popup{
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+.popup-box.show, .popup-box.show .popup{
+  opacity: 1;
+  pointer-events: auto;
+}
+.popup-box.show .popup{
+  transform: translate(-50%, -50%) scale(1);
+}
+.popup .content{
+  border-radius: 5px;
+  background: #fff;
+  width: calc(100% - 15px);
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+.content header{
+  padding: 15px 25px;
+  border-bottom: 1px solid #ccc;
+}
+.content header p{
+  font-size: 20px;
+  font-weight: 500;
+}
+.content header i{
+  color: #8b8989;
+  cursor: pointer;
+  font-size: 23px;
+}
+.content form{
+  margin: 15px 25px 35px;
+}
+.content form .row{
+  margin-bottom: 20px;
+}
+form .row label{
+  font-size: 18px;
+  display: block;
+  margin-bottom: 6px;
+}
+form :where(input, textarea){
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  padding: 0 15px;
+  border-radius: 4px;
+  border: 1px solid #999;
+}
+form :where(input, textarea):focus{
+  box-shadow: 0 2px 4px rgba(0,0,0,0.11);
+}
+form .row textarea{
+  height: 150px;
+  resize: none;
+  padding: 8px 15px;
+}
+form button{
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 4px;
+  background: #6A93F8;
+}
+@media (max-width: 660px){
+  .wrapper{
+    margin: 15px;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fill, 100%);
+  }
+  .popup-box .popup{
+    max-width: calc(100% - 15px);
+  }
+  .bottom-content .settings i{
+    font-size: 17px;
+  }
+  
+}
+/*export to sql button*/
+.sql1{
+    text-align: center;
+    border: 3px solid #000000;
+}  
+  
+ 
+  .sql {
+    appearance: none;
+    background-color: #2ea44f;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  
+  .sql:focus:not(:focus-visible):not(.focus-visible) {
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .sql:hover {
+    background-color: #2c974b;
+  }
+  
+  .sql:focus {
+    box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+    outline: none;
+  }
+  
+  .sql:disabled {
+    background-color: #94d3a2;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+  }
+  
+.sql:active {
+    background-color: #298e46;
+    box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+  }
+
+/*popup for export to sql*/
+.popup-box2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+  }
+  .popup-box2 .popup2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  .popup-box2, .popup2{
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+  }
+  .popup-box2.show, .popup-box2.show .popup2{
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .popup-box2.show .popup2{
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .popup2 .content2{
+    border-radius: 5px;
+    background: #fff;
+    width: calc(100% - 15px);
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  .content2 header{
+    padding: 15px 25px;
+    border-bottom: 1px solid #ccc;
+  }
+  .content2 header p{
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .content2 header i{
+    color: #8b8989;
+    cursor: pointer;
+    font-size: 23px;
+  }
+  .content2 form{
+    margin: 15px 25px 35px;
+  }
+  .content2 form .row{
+    margin-bottom: 20px;
+  }
+  form .row label{
+    font-size: 18px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  form :where(input, textarea){
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 15px;
+    border-radius: 4px;
+    border: 1px solid #999;
+  }
+  form :where(input, textarea):focus{
+    box-shadow: 0 2px 4px rgba(0,0,0,0.11);
+  }
+  form .row textarea{
+    height: 150px;
+    resize: none;
+    padding: 8px 15px;
+  }
+  form button{
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 4px;
+    background: #6A93F8;
+  }
+
+  .tooltip1 {
+    position: relative;
+    display: inline-block;
+    
+  }
+  
+  /* Tooltip text */
+  .tooltip1 .tooltiptext1 {
+    visibility: hidden;
+    width: 180px;
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 10px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip1:hover .tooltiptext1 {
+    visibility: visible;
+  }  
+
+
+  /*
+  
+  
+  
+  ["#fd7f6f", "#7eb0d5", "#b2e061", "#bd7ebe", "#ffb55a", "#ffee65", "#beb9db", "#fdcce5", "#8bd3c7"]
+["#54bebe", "#76c8c8", "#98d1d1", "#badbdb", "#dedad2", "#e4bcad", "#df979e", "#d7658b", "#c80064"]
+
+  
+  
+  
+  <div class="intro">Welcome to sketchER : "Design Your Database"
+                    Why use pen and paper to sketch your Entity-Relationship diagrams when you can get a similar result with sketchER, a rough hand-drawn style diagramming tool!
+                    Further more, you can use sketchER to make both, Logical and Physical Schemas of your database. Sketch out your ER diagrams, convert it into a tabular form, click "Export to SQL" to generate code for your concepting, copy and paste it to your SQL server and click run!
+                    erd iis a great tool for concepting. convert your idea of your database into a diagram. when youo are done concepting, you can simply translate your concept into code by pressing the button. Dont manually recreate concepts in db form
+                    
+                    entites transform into db tables,attributes to columns and relationships as coded connections.
+                    Create a visual representation of your database. Easy to spot errors, occurence of duplicate data and easy to onboard someone who is new to database, they can simply look at the erd and see how the whole thing works.</div>
+            
+  
+  
+  */
+ 
+/* CSS */
+
+
+
+/*
+<div class="parent">
+        <div class="child1">
+        </div>
+        <div class="child2">
+        </div>
+        <div class="child3">
+        </div>
+        <div class="child4">
+        </div>
+        <div class="child5">
+        </div>
+      </div>
+</div>*/

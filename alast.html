@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>sketchER : Design Your Database</title>             
+        <link rel = "icon" href ="https://img.icons8.com/external-prettycons-flat-prettycons/47/000000/external-diagram-web-and-seo-prettycons-flat-prettycons.png" type = "image/x-icon">
+        <link href="alast.css" type="text/css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        <script src="https://unpkg.com/roughjs@latest/bundled/rough.js"></script>
+
+    </head>
+    <body class="body">
+        <div class="parent">
+                <br><div class="toolbar">
+                <button href="#" id="brush" onclick="ChangeTool('brush')" type = "button" class="button">Pen</button>
+                <button href="#" id="line" onclick="ChangeTool('line')" type = "button" class="button">Line</button>
+                <button href="#" id="dashline" onclick="ChangeTool('dashline')" type = "button" class="button">Dashed Line</button> 
+                <button href="#" id="2line" onclick="ChangeTool('2line')" type = "button" class="button">Double Line</button>
+                <button href="#" id="arrow" onclick="ChangeTool('arrow')" type = "button" class="button">Arrow</button>
+                <button href="#" id="rectangle" onclick="ChangeTool('rectangle')" type = "button" class="button">Entity</button> 
+                <button href="#" id="drectangle" onclick="ChangeTool('drectangle')" type = "button" class="button">Weak Entity</button>
+                <button href="#" id="assentity" onclick="ChangeTool('assentity')" type = "button" class="button">Associative Entity</button>
+                <button href="#" id="dashrectangle" onclick="ChangeTool('dashrectangle')" type = "button" class="button">Aggregation</button>
+                <button href="#" id="circle" onclick="ChangeTool('circle')" type = "button" class="button">Circle</button> 
+                <button href="#" id="ellipse" onclick="ChangeTool('ellipse')" type = "button" class="button">Attribute</button> 
+                <button href="#" id="dellipse" onclick="ChangeTool('dellipse')" type = "button" class="button">MVAttribute</button>
+                <button href="#" id="dashedellipse" onclick="ChangeTool('dashedellipse')" type = "button" class="button">DerivedAttribute</button> 
+                <button href="#" id="ltriangle" onclick="ChangeTool('ltriangle')" type = "button" class="button">Specialization</button> 
+                <button href="#" id="utriangle" onclick="ChangeTool('utriangle')" type = "button" class="button">Generelization</button>
+                <button href="#" id="rhombus" onclick="ChangeTool('rhombus')" type = "button" class="button">Strong Relationship</button>
+                <button href="#" id="drhombus" onclick="ChangeTool('drhombus')" type = "button" class="button">Weak Relationship</button> 
+                <button href="#" id="text" onclick="ChangeTool('text')" type = "button" class="button">Text</button>
+                <input type="text" id="mytext" name="text">
+            </div>
+            <div class="canvaschild">
+                <canvas id="canvas" width= 1300 height= 600></canvas>
+            </div>
+            <div class="footbar">
+                <button href="#" id="undo" onclick="Undo()" type = "button" class="button">Undo</button>
+                <button href="#" id="clear" onclick="Clear_Canvas()" type = "button" class="button">Clear</button>
+                <a id="download" download="image.png">
+                    <button href="#" id="save" onclick="Save_Image()" type = "button" class="button">Save</button>
+                </a>
+                <label for ="strokewidth" style="font-size: small;font-weight: bold;">Width:</label>
+                <input type="range" min="1" max="2" step="0.1" value="1.5" class="slider" id="strokewidth">
+                <label for ="stroke" style="font-size: small;font-weight: bold;">Stroke:</label>
+                <input type="color" id="stroke" value="#000000">
+                <label for ="fill" style="font-size: small; font-weight: bold;">Fill:</label>
+                <input type="color" id="fill" value="#696969">  
+                <span style="font-size: small;font-weight: bold;display: inline;">Fill Style:               
+                <button href="#" id="none" onclick="ChangeStyle('none')" type = "button" class="button">None</button>  
+                <button href="#" id="hachure" onclick="ChangeStyle('hachure')" type = "button" class="button">Hachure</button>
+                <button href="#" id="solid" onclick="ChangeStyle('solid')" type = "button" class="button">Solid</button>
+                <button href="#" id="zigzag" onclick="ChangeStyle('zigzag')" type = "button" class="button">Zigzag</button>
+                <button href="#" id="cross-hatch" onclick="ChangeStyle('cross-hatch')" type = "button" class="button">Cross-Hatch</button>
+                <button href="#" id="dots" onclick="ChangeStyle('dots')" type = "button" class="button">Dots</button>
+                <button href="#" id="dashed" onclick="ChangeStyle('dashed')" type = "button" class="button">Dashed</button>
+                <button href="#" id="zigzag-line" onclick="ChangeStyle('zigzag-line')" type = "button" class="button">Zigzag-Line</button></span>
+            </div><br><br>
+            <div class="popup-box">
+                <div class="popup">
+                    <div class="content">
+                      <header>
+                        <p></p>
+                        <i class="uil uil-times"></i>
+                      </header>
+                      <form action="#">
+                        <div class="row title">
+                          <div class="tooltip1"><label>Entity <i class="uil uil-info-circle"></i></label>
+                            <span class="tooltiptext1">Dont use Reserved Words for table names. <a href="https://docs.oracle.com/cd/A97630_01/appdev.920/a42525/apb.htm" style="color: white;">More info here</a></span>
+                          </div>
+                          <input type="text" spellcheck="false">
+                        </div>
+                        <div class="row description">
+                          <div class="tooltip1"><label>Attributes,Datatypes,Constraints <i class="uil uil-info-circle"></i></label>              
+                            <span class="tooltiptext1">Add each entry on new line. Eg: username,varchar(20),primary key</span>
+                          </div>
+                          <textarea spellcheck="false"></textarea>
+                          <br>
+                          <div id="primarykeys">
+                            <div class="tooltip1"><label for="pk">Foreign Keys
+                            <select name="pk" id="pk">
+                            <option value="none">Click to see</option>                   
+                            </select><i class="uil uil-info-circle"></i></label>   
+                            <span class="tooltiptext1">Add foreign keys at bottom. Eg: PersonID int FOREIGN KEY REFERENCES Persons(PersonID)</span>
+                          </div>             
+                          </div>  
+                          <div>
+                            <label for="dtypes">Datatypes:
+                            <select name="dtypes" id="dtypes">
+                            <option value="none">Click to see</option>      
+                            <option value="int">int</option>          
+                            <option value="CHAR(size)">CHAR(size)</option>
+                            <option value="VARCHAR2(size)">VARCHAR2(size)</option>
+                            <option value="NCHAR(size)">NCHAR(size)</option>
+                            <option value="NVARCHAR2(size)">NVARCHAR2(size)</option>
+                            <option value="CLOB">CLOB</option>
+                            <option value="NCLOB">NCLOB</option>
+                            <option value="LONG">LONG</option>
+                            <option value="NUMBER(p,s)">NUMBER(p,s)</option>
+                            <option value="DATE">DATE</option>
+                            <option value="BLOB">BLOB</option>
+                            <option value="BFILE">BFILE</option>
+                            <option value="RAW(size)">RAW(size)</option>
+                            <option value="LONG RAW">LONG RAW</option>
+                            <option value="ROWID">ROWID</option>
+                            <option value="MLSLABEL">MLSLABEL</option>
+                            </select></label>                
+                          </div>   
+                          <div>
+                            <label for="constraints">Constraints:
+                            <select name="constraints" id="constraints">
+                            <option value="none">Click to see</option>      
+                            <option value="not null">NOT NULL</option>          
+                            <option value="unique">UNIQUE</option>
+                            <option value="pk">Primary Key</option>
+                            <option value="fk">Foreign Key</option>
+                            <option value="check">Check</option>       
+                            <option value="default">Default</option>
+                            <option value="cindex">Create Index</option>     
+                            </select></label>                
+                          </div>             
+                        </div>            
+                        <button></button>
+                      </form>
+                    </div>
+                  </div>
+            </div>
+            <div class="popup-box2">
+                <div class="popup2">
+                    <div class="content2">
+                      <header>
+                        <p>Export to SQL</p>
+                        <i class="uil uil-times"></i>
+                      </header>
+                      <form action="#">            
+                        <div class="row description2">  
+                          <p style="font-size:12px;">Copy these commands to apply them to your database. Before using the generated commands you may need to add data types, indices and foreign keys.</p><br>            
+                          <textarea spellcheck="false"></textarea>
+                          <br>              
+                        </div>            
+                        <button id="sqlgenerator" class="sql" onclick="CopytoClipboard()">Copy To Clipboard</button>
+                      </form>
+                    </div>
+                  </div>
+            </div>
+            <div class="sql1">
+                <button onclick="opencodePopup()" id="sqlgenerator" class="sql" >Export to SQL</button>
+              </div><br><br>
+            <div class="wrapper">
+                <li class="add-box">
+                    <div class="icon"><i class="uil uil-plus"></i></div>
+                    <p>Add new Table</p>        
+                </li> 
+            </div><br><br>
+        </div>        
+    </body>
+    <script src="tablecode.js"></script>
+    <script src="alast.js"></script>
+</html> 
