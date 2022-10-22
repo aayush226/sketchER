@@ -6,10 +6,11 @@ let path_array = [];
 let index = -1;
 let message;
 let usingBrush = false;
-
+//width= 1300 height= 550
 var strokewidth = document.getElementById("strokewidth");
 var stroke = document.getElementById("stroke");
 var fill = document.getElementById("fill");
+var fontColor = document.getElementById("font");
 
 function drawelement(loc){
   if(currentTool==='line'){
@@ -31,7 +32,7 @@ function drawelement(loc){
     shape =  generator.line(mousedown.x,mousedown.y,loc.x,loc.y,{stroke:stroke.value, strokeWidth : strokewidth.value});
     roughCanvas.draw(shape);
 
-    let shape2 = generator.line(mousedown.x,mousedown.y-10,loc.x,loc.y-10,{stroke:stroke.value, strokeWidth : strokewidth.value});
+    let shape2 = generator.line(mousedown.x,mousedown.y-7,loc.x,loc.y-7,{stroke:stroke.value, strokeWidth : strokewidth.value});
     roughCanvas.draw(shape2);
   }
   else if(currentTool==='arrow'){
@@ -281,27 +282,20 @@ function drawelement(loc){
 }
 
 const canvas = document.getElementById("canvas");
+
 const ctx = canvas.getContext("2d");   
 //ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle = "#badbdb";
+ctx.fillStyle = "#f8f9fa";//"#B0B0B0";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-let roughCanvas = rough.canvas(canvas);
-let generator = roughCanvas.generator;
+const roughCanvas = rough.canvas(canvas);
+const generator = roughCanvas.generator;
 canvas.addEventListener("mousedown", ReactToMouseDown);
 canvas.addEventListener("mousemove", ReactToMouseMove);
 canvas.addEventListener("mouseup", ReactToMouseUp);
 
 path_array.push(ctx.getImageData(0,0,canvas.width,canvas.height));
 index += 1;
-
-
-
-/*document.addEventListener("keydown",function(e){
-  ctx.font = "16px Arial";
-  ctx.fillText(e.key,mousedown.x,mousedown.y);
-  mousedown.x += ctx.measureText(e.key);
-});*/
 
 class MouseDownPos{
   constructor(x,y) {
@@ -317,6 +311,7 @@ class Location{
 } 
 let mousedown = new MouseDownPos(0,0);
 let loc = new Location(0,0);
+
 function GetMousePosition(x,y){    
   let canvasSizeData = canvas.getBoundingClientRect();
   return { x: (x - canvasSizeData.left) * (canvas.width  / canvasSizeData.width),
@@ -370,8 +365,8 @@ function ReactToMouseDown(e){
   SaveCanvasImage();
   if(currentTool==='text'){
     message = document.getElementById("mytext").value;
-    ctx.font = "15px Helvetica, Arial, sans-serif";  
-    ctx.fillStyle = stroke.value;  
+    ctx.font = "bold 15px Helvetica, Arial, sans-serif";  
+    ctx.fillStyle = fontColor.value;  
     //ReactToKeyDown();
   }
   
@@ -428,12 +423,15 @@ function ReactToMouseUp(e){
   path_array.push(ctx.getImageData(0,0,canvas.width,canvas.height));
   index += 1;
 }
+
+
+
 function Clear_Canvas(){
   let text;
   if (confirm("Do you want to clear the Canvas?") == true) {
       text = "You pressed OK!";      
       //ctx.clearRect(0,0,canvas.width,canvas.height);      
-      ctx.fillStyle = "#badbdb";
+      ctx.fillStyle = "#f8f9fa";
       ctx.fillRect(0,0,canvas.width,canvas.height);  
       path_array = [];
       index = -1;
@@ -454,245 +452,10 @@ function Undo(){
   if(index<=0){
       index=0;      
   }else{      
+      
       index-=1;       
       path_array.pop();         
       ctx.putImageData(path_array[index],0 ,0);
   }    
 }
-
- // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-
-
-/*let canvas;
-let ctx;
-let strokeColor = 'black';
-let fillColor = 'black';
-let line_Width = 2;
-let canvasWidth = 1200;
-let canvasHeight = 600;
-let start_bg_color = "white";
-
-let dragging = false;
-class MouseDownPos{
-    constructor(x,y) {
-        this.x = x,
-        this.y = y;
-    }
-}
- 
-class Location{
-    constructor(x,y) {
-        this.x = x,
-        this.y = y;
-    }
-}
-
-let mousedown = new MouseDownPos(0,0);
-let loc = new Location(0,0);
-
-document.addEventListener('DOMContentLoaded', setupCanvas);
-
-function setupCanvas(){
-    // Get reference to canvas element
-    //canvas = document.getElementById('canvas');
-    // Get methods for manipulating the canvas
-    //ctx = canvas.getContext('2d');
-    //ctx.clearRect(0,0,canvas.width,canvas.height);        
-    const rc = rough.canvas(document.getElementById('canvas'));
-    const generator = rc.generator;
-    // Execute ReactToMouseDown when the mouse is clicked
-    canvas.addEventListener("mousedown", ReactToMouseDown);
-    // Execute ReactToMouseMove when the mouse is clicked
-    canvas.addEventListener("mousemove", ReactToMouseMove);
-    // Execute ReactToMouseUp when the mouse is clicked
-    canvas.addEventListener("mouseup", ReactToMouseUp);
-}
-function SaveCanvasImage(){    
-  savedImageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-}
-
-function RedrawCanvasImage(){    
-  ctx.putImageData(savedImageData,0,0);
-}
-function ChangeTool(toolClicked){
-  document.getElementById("line").className = "";
-  document.getElementById("rectangle").className = "";
-  document.getElementById(toolClicked).className = "selected";
-  currentTool = toolClicked;
-}
-
-
-function GetMousePosition(x,y){
-    // Get canvas size and position in web page
-    let canvasSizeData = canvas.getBoundingClientRect();
-    return { x: (x - canvasSizeData.left) * (canvas.width  / canvasSizeData.width),
-        y: (y - canvasSizeData.top)  * (canvas.height / canvasSizeData.height)
-      };
-}
-function UpdateRubberbandOnMove(loc){
-  // Stores changing height, width, x & y position of most 
-  // top left point being either the click or mouse location
-  //UpdateRubberbandSizeData(loc);
-
-  // Redraw the shape
-  drawRubberbandShape(loc);
-}
-function drawRubberbandShape(loc){
-  //ctx.strokeStyle = strokeColor;
-  //ctx.fillStyle = fillColor;
-  if(currentTool === "line"){          
-      const roughelement = generator.line(150,150,600,600);
-      rc.draw(roughelement);
-  }   
-  else if(currentTool === "rectangle"){        
-      ctx.strokeRect(shapeBoundingBox.left, shapeBoundingBox.top, shapeBoundingBox.width, shapeBoundingBox.height);
-  }
-}
-function ReactToMouseDown(e){
-    canvas.style.cursor = "crosshair";
-    loc = GetMousePosition(e.clientX, e.clientY);
-    SaveCanvasImage();
-    mousedown.x = loc.x;
-    mousedown.y = loc.y;
-    
-    rc.draw(generator.line(60, 60, 190, 60));
-    dragging = true;   
-};
-
-function ReactToMouseMove(e){
-  canvas.style.cursor = "crosshair";
-  loc = GetMousePosition(e.clientX, e.clientY);  
-  
-  if(dragging){
-      RedrawCanvasImage();
-      UpdateRubberbandOnMove(loc);
-  }
-};
-  
-
-function ReactToMouseUp(e){
-  canvas.style.cursor = "default";
-  loc = GetMousePosition(e.clientX, e.clientY);
-  RedrawCanvasImage();
-  UpdateRubberbandOnMove(loc);
-  dragging = false;  
-}
-
-
-
-
-//////////////
-
-/*(function($) {
-    var tool;
-    var canvas = $('paint');
-    var ctx = canvas.getContext('2d');
-    
-    var history = {
-      redo_list: [],
-      undo_list: [],
-      saveState: function(canvas, list, keep_redo) {
-        keep_redo = keep_redo || false;
-        if(!keep_redo) {
-          this.redo_list = [];
-        }
-        
-        (list || this.undo_list).push(canvas.toDataURL());   
-      },
-      undo: function(canvas, ctx) {
-        this.restoreState(canvas, ctx, this.undo_list, this.redo_list);
-      },
-      redo: function(canvas, ctx) {
-        this.restoreState(canvas, ctx, this.redo_list, this.undo_list);
-      },
-      restoreState: function(canvas, ctx,  pop, push) {
-        if(pop.length) {
-          this.saveState(canvas, push, true);
-          var restore_state = pop.pop();
-          var img = new Element('img', {'src':restore_state});
-          img.onload = function() {
-            ctx.clearRect(0, 0, 600, 400);
-            ctx.drawImage(img, 0, 0, 600, 400, 0, 0, 600, 400);  
-          }
-        }
-      }
-    }
-    
-    var pencil = {
-      options: {
-        stroke_color: ['00', '00', '00'],
-        dim: 4
-      },
-      init: function(canvas, ctx) {
-        this.canvas = canvas;
-        this.canvas_coords = this.canvas.getCoordinates();
-        this.ctx = ctx;
-        this.ctx.strokeColor = this.options.stroke_color;
-        this.drawing = false;
-        this.addCanvasEvents();
-      },
-      addCanvasEvents: function() {
-        this.canvas.addEvent('mousedown', this.start.bind(this));
-        this.canvas.addEvent('mousemove', this.stroke.bind(this));
-        this.canvas.addEvent('mouseup', this.stop.bind(this));
-        this.canvas.addEvent('mouseout', this.stop.bind(this));
-      },
-      start: function(evt) {
-        var x = evt.page.x - this.canvas_coords.left;
-        var y = evt.page.y - this.canvas_coords.top;
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y);
-        history.saveState(this.canvas);
-        this.drawing = true;
-      },
-      stroke: function(evt) {
-        if(this.drawing) {
-          var x = evt.page.x - this.canvas_coords.left;
-          var y = evt.page.y - this.canvas_coords.top;
-          this.ctx.lineTo(x, y);
-          this.ctx.stroke();
-          
-        }
-      },
-      stop: function(evt) {
-        if(this.drawing) this.drawing = false;
-      }
-    };
-    
-    $('pencil').addEvent('click', function() {
-      pencil.init(canvas, ctx);
-    });
-    
-    $('undo').addEvent('click', function() {
-      history.undo(canvas, ctx);
-    });
-    
-    $('redo').addEvent('click', function() {
-      history.redo(canvas, ctx);
-    });
-  
-    
-  })(document.id)
-  
-  
-  <input id="radio" type="radio" name="fillStyle" value="none" checked/>
-                <label for="none">None</label>
-                <input id="radio" type="radio" name="fillStyle" value="hachure"/>
-                <label for="hachure">Hachure</label>
-                <input id="radio" type="radio" name="fillStyle" value="solid"/>
-                <label for="solid">Solid</label>
-                <input id="radio" type="radio" name="fillStyle" value="zigzag"/>
-                <label for="zigzag">Zigzag</label>
-                <input id="radio" type="radio" name="fillStyle" value="cross-hatch"/>
-                <label for="cross-hatch">Cross-Hatch</label>
-                <input id="radio" type="radio" name="fillStyle" value="dots"/>
-                <label for="dots">Dots</label>
-                <input id="radio" type="radio" name="fillStyle" value="dashed"/>
-                <label for="dashed ">Dashed </label>
-                <input id="radio" type="radio" name="fillStyle" value="zigzag-line"/>
-                <label for="zigzag-line">Zigzag-Line</label>    
-  
-  */
 
