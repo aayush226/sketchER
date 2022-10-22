@@ -3,15 +3,22 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>sketchER : Design Your Database</title>             
+        <title>sketchER : Database Designer</title>             
         <link rel = "icon" href ="https://img.icons8.com/external-prettycons-flat-prettycons/47/000000/external-diagram-web-and-seo-prettycons-flat-prettycons.png" type = "image/x-icon">
-        <link href="stylesheet.css" type="text/css" rel="stylesheet"/>
+        <link href="alast.css" type="text/css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://unpkg.com/roughjs@latest/bundled/rough.js"></script>
-
+        
     </head>
-    <body class="body">
+    <body class="body" onload = "welcomePopup()">
         <div class="parent">
+            <div class = "help">
+              <i onclick = "welcomePopup()" class="fa fa-question-circle" style="font-size:33px;color:#2ea44f"></i>
+            </div>
+            <div class = "down">
+              <a href = "#sqlbutton" class="fa fa-arrow-circle-down"  style="font-size:33px;color:#2ea44f;text-decoration: none;"></a>
+            </div>
                 <br><div class="toolbar">
                 <button href="#" id="brush" onclick="ChangeTool('brush')" type = "button" class="button">Pen</button>
                 <button href="#" id="line" onclick="ChangeTool('line')" type = "button" class="button">Line</button>
@@ -32,22 +39,24 @@
                 <button href="#" id="drhombus" onclick="ChangeTool('drhombus')" type = "button" class="button">Weak Relationship</button> 
                 <button href="#" id="text" onclick="ChangeTool('text')" type = "button" class="button">Text</button>
                 <input type="text" id="mytext" name="text">
-            </div>
-            <div class="canvaschild">
-                <canvas id="canvas" width= 1300 height= 600></canvas>
+            </div>                        
+            <div class="canvaschild" >
+                <canvas id="canvas" width = 3000 height = 550></canvas>
             </div>
             <div class="footbar">
-                <button href="#" id="undo" onclick="Undo()" type = "button" class="button">Undo</button>
+                <button href="#" id="undo" onclick="Undo()" type = "button" class="button">Undo</button>                
                 <button href="#" id="clear" onclick="Clear_Canvas()" type = "button" class="button">Clear</button>
                 <a id="download" download="image.png">
                     <button href="#" id="save" onclick="Save_Image()" type = "button" class="button">Save</button>
                 </a>
                 <label for ="strokewidth" style="font-size: small;font-weight: bold;">Width:</label>
-                <input type="range" min="1" max="2" step="0.1" value="1.5" class="slider" id="strokewidth">
+                <input type="range" min="1" max="2" step="0.1" value="1.5" class="slider" id="strokewidth" style="vertical-align: middle;">
+                <label for ="font" style="font-size: small;font-weight: bold;">Font:</label>
+                <input type="color" id="font" value="#000000">
                 <label for ="stroke" style="font-size: small;font-weight: bold;">Stroke:</label>
                 <input type="color" id="stroke" value="#000000">
                 <label for ="fill" style="font-size: small; font-weight: bold;">Fill:</label>
-                <input type="color" id="fill" value="#696969">  
+                <input type="color" id="fill" value="#9F63C4">  
                 <span style="font-size: small;font-weight: bold;display: inline;">Fill Style:               
                 <button href="#" id="none" onclick="ChangeStyle('none')" type = "button" class="button">None</button>  
                 <button href="#" id="hachure" onclick="ChangeStyle('hachure')" type = "button" class="button">Hachure</button>
@@ -145,9 +154,41 @@
                     </div>
                   </div>
             </div>
+            <div class="popup-box3">
+              <div class="popup3">
+                  <div class="content3">
+                    <header>
+                      <h2>Welcome to sketchER!</h2>
+                      <i class="uil uil-times"></i>
+                    </header>
+                    <form action="#">            
+                      <div class="row description2">  
+                        <h5><mark style="background-color:#9f63c4; padding: 1.5px; color: white;">sketchER</mark> is a Rough Hand-Drawn style Database Modelling tool to create Entity-Relationship diagrams and SQL Statements.</h5>
+                        <br>
+                        <p style="font-size:13px;">
+                          sketchER can be used to make both, <span style="font-weight:bold;">Logical</span> and <span style="font-weight:bold;">Physical Schemas</span> of your database.</p><br>
+                          <ul style="font-size:13px; margin-left: 15px;">
+                            <li>Sketch out idea of your database into a ER diagram (Logical Schema)</li>
+                            <li>Convert your sketch into a Physical or Relational form (Automatic Logical to Physical Schema conversion feature coming soon!)</li>
+                            <li>Translate Relational Schema into code easily by clicking "Export to SQL" to generate SQL statements</li>
+                            <li>Copy & Paste the SQL statements to your Oracle Server and click run to build your database!</li>
+                          </ul>
+                        <br>
+                        <p style="font-size:13px;">
+                          Additionally, you can download your ER diagram as png by clicking "Save".
+                        </p><br>                         
+                        <p style="font-size:13px;">
+                          <span style="font-weight:bold;">sketchER</span> is built on top of <a href="https://roughjs.com/" target="_blank">Rough.js</a> which gives it a sketchy and hand-drawn-like style. Fill styles like : hachure, solid, zigzag, cross-hatch, dots, dashed and zigzag-line are accessible. Additionally, stroke width, stroke color, fill color and font colors can also be controlled. 
+                        </p><br> 
+                      </div>            
+                    </form>
+                  </div>
+                </div>
+          </div>
+          <section id = "sqlbutton">
             <div class="sql1">
                 <button onclick="opencodePopup()" id="sqlgenerator" class="sql" >Export to SQL</button>
-              </div><br><br>
+              </div></section><br><br>
             <div class="wrapper">
                 <li class="add-box">
                     <div class="icon"><i class="uil uil-plus"></i></div>
@@ -156,6 +197,6 @@
             </div><br><br>
         </div>        
     </body>
-    <script src="table.js"></script>
-    <script src="canvas.js"></script>
+    <script src="tablecode.js"></script>
+    <script src="alast.js"></script>
 </html> 
