@@ -15,6 +15,7 @@ Additionally, you can download your ER diagram as png by clicking "Save".
 sketchER has all standard ER diagram components like : *Entity, Weak Entity, Associative Entity, Attribute, Multi-Valued Attribute, Derived Attribute, Strong Relationship, Weak Relationship, Aggregation, Specialization* and *Generelization*. *Total Participation* and *Partial Participation* components are also provided.
 
 sketchER is built on top of [**Rough.js**](https://roughjs.com/) which gives it a sketchy and hand-drawn-like style. Fill styles like : *hachure, solid, zigzag, cross-hatch, dots, dashed* and *zigzag-line* are accessible. Additionally, *stroke width, stroke color, fill color* and *font colors* can also be controlled.
+![fill style](https://user-images.githubusercontent.com/44861043/197333136-7ace2da0-6589-4ec0-873e-b5e9ee664e20.png)
 
 
 
