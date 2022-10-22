@@ -51,7 +51,7 @@ function showNotes() {
 showNotes();
 
 function deleteNote(noteId) {
-    let confirmDel = confirm("Are you sure you want to delete this note?");
+    let confirmDel = confirm("Are you sure you want to delete this table?");
     if(!confirmDel) return;
     notes.splice(noteId, 1);
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -139,6 +139,19 @@ function opencodePopup(){
     let code = generatesqlcode(notes,sqlcode);
     descTag2.value = code;
     
+}
+const popupBox3 = document.querySelector(".popup-box3"),
+closeIcon3 = popupBox3.querySelector("header i")
+
+
+
+closeIcon3.addEventListener("click", () => {    
+    popupBox3.classList.remove("show");
+    document.querySelector("body").style.overflow = "auto";
+});
+function welcomePopup(){
+    popupBox3.classList.add("show");
+    document.querySelector("body").style.overflow = "hidden";
 }
 function CopytoClipboard(){
     var copy = descTag2;
