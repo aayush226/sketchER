@@ -15,6 +15,16 @@ Additionally, you can download your ER diagram as png by clicking "Save".
 
 sketchER has all standard ER diagram components like : *Entity, Weak Entity, Associative Entity, Attribute, Multi-Valued Attribute, Derived Attribute, Strong Relationship, Weak Relationship, Aggregation, Specialization* and *Generelization*. *Total Participation* and *Partial Participation* components are also provided.
 
+Example : **Facebook Database**
+
+*Logical Schema*
+![image](https://user-images.githubusercontent.com/44861043/197378529-f52368e7-77c5-4912-9180-8649d30f7162.png)
+
+*Physical Schema*
+
+*SQL Statements*
+
+
 Start sketching [here!](https://aayush226.github.io/sketchER/)
 
 sketchER is built on top of [**Rough.js**](https://roughjs.com/) which gives it a sketchy and hand-drawn-like style. Fill styles like : *hachure, solid, zigzag, cross-hatch, dots, dashed* and *zigzag-line* are accessible. Additionally, *stroke width, stroke color, fill color* and *font colors* can also be controlled.
