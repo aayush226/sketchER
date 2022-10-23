@@ -6,7 +6,7 @@
 
 
 - Sketch out idea of your database into a ER diagram (Logical Schema)
-- Convert your sketch into a Physical or Relational form (Automatic Logical to Physical Schema conversion feature coming soon! with basic **CRUD** operations 
+- Convert your sketch into a Physical or Relational form (Automatic Logical to Physical Schema conversion feature coming soon!) with basic **CRUD** operations 
 - Translate Relational Schema into code easily by clicking "Export to SQL" to generate SQL statements
 - Copy & Paste the SQL statements to your Oracle Server and click run to build your database!
 
