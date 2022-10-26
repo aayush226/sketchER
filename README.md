@@ -18,6 +18,7 @@ sketchER has all standard ER diagram components like : *Entity, Weak Entity, Ass
 **Example** : **Facebook Database**
 
 *Logical Schema*
+
 ![image](https://user-images.githubusercontent.com/44861043/197378529-f52368e7-77c5-4912-9180-8649d30f7162.png)
 
 *Physical Schema*
